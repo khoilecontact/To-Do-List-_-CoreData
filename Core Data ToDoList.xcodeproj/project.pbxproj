@@ -16,6 +16,7 @@
 		223B4D8F26DB7E1300CBDBC7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 223B4D8D26DB7E1300CBDBC7 /* LaunchScreen.storyboard */; };
 		223B4D9826DB7EC800CBDBC7 /* ToDoListItem+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223B4D9626DB7EC800CBDBC7 /* ToDoListItem+CoreDataClass.swift */; };
 		223B4D9926DB7EC800CBDBC7 /* ToDoListItem+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223B4D9726DB7EC800CBDBC7 /* ToDoListItem+CoreDataProperties.swift */; };
+		22E60F292A30CE940099BD1C /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E60F282A30CE940099BD1C /* CoreDataManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		223B4D9026DB7E1300CBDBC7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		223B4D9626DB7EC800CBDBC7 /* ToDoListItem+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ToDoListItem+CoreDataClass.swift"; sourceTree = "<group>"; };
 		223B4D9726DB7EC800CBDBC7 /* ToDoListItem+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ToDoListItem+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		22E60F282A30CE940099BD1C /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +73,7 @@
 				223B4D8D26DB7E1300CBDBC7 /* LaunchScreen.storyboard */,
 				223B4D9026DB7E1300CBDBC7 /* Info.plist */,
 				223B4D8826DB7E1300CBDBC7 /* Core_Data_ToDoList.xcdatamodeld */,
+				22E60F282A30CE940099BD1C /* CoreDataManager.swift */,
 			);
 			path = "Core Data ToDoList";
 			sourceTree = "<group>";
@@ -159,6 +162,7 @@
 				223B4D8A26DB7E1300CBDBC7 /* Core_Data_ToDoList.xcdatamodeld in Sources */,
 				223B4D9826DB7EC800CBDBC7 /* ToDoListItem+CoreDataClass.swift in Sources */,
 				223B4D9926DB7EC800CBDBC7 /* ToDoListItem+CoreDataProperties.swift in Sources */,
+				22E60F292A30CE940099BD1C /* CoreDataManager.swift in Sources */,
 				223B4D8226DB7E1300CBDBC7 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -9,8 +9,6 @@ import UIKit
 import CoreData
 
 class ViewController: UITableViewController {
-    
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     //let context: NSPersistentContainer!
     
     private var items = [ToDoListItem]()
@@ -24,7 +22,7 @@ class ViewController: UITableViewController {
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didTapAdd))
         
-        getAllItems()
+        items = CoreDataManager.shared.getAllItems()
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -51,12 +49,16 @@ class ViewController: UITableViewController {
                     return
                 }
                 
-                self?.updateItem(item: item, newName: text)
+                CoreDataManager.shared.updateItem(item: item, newName: text, completion: {
+                    self?.tableView.reloadData()
+                })
             }))
             self.present(alert, animated: true)
         }))
-        sheet.addAction(UIAlertAction(title: "Delete", style: .default, handler: { _ in
-            self.deleteItem(item: item)
+        sheet.addAction(UIAlertAction(title: "Delete", style: .default, handler: { [weak self] _ in
+            CoreDataManager.shared.deleteItem(item: item, completion: {
+                self?.tableView.reloadData()
+            })
         }))
         present(sheet, animated: true)
         
@@ -70,67 +72,11 @@ class ViewController: UITableViewController {
                 return
             }
             
-            self?.createItem(name: text)
+            CoreDataManager.shared.createItem(name: text, completion: {
+                self?.tableView.reloadData()
+            })
         }))
         present(alert, animated: true)
     }
-    
-    func getAllItems() {
-        do {
-            items = try context.fetch(ToDoListItem.fetchRequest())
-        } catch {
-            print("Cannot fetch data from Core Data")
-        }
-    }
-    
-    func createItem(name: String) {
-        let newItem = ToDoListItem(context: context)
-        newItem.name = name
-        newItem.createdAt = Date()
-        
-        do {
-            try context.save()
-            items.append(newItem)
-            getAllItems()
-            
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
-        } catch {
-            print("Cannot save new item to Core Data")
-        }
-    }
-    
-    func deleteItem(item: ToDoListItem) {
-        context.delete(item)
-        
-        do {
-            try context.save()
-            getAllItems()
-            
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
-            
-        } catch {
-            print("Cannot delete the item from Core Data")
-        }
-    }
-    
-    func updateItem(item: ToDoListItem, newName: String) {
-        item.name = newName
-        
-        do {
-            try context.save()
-            
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
-        } catch {
-            print("Cannot update the item from Core Data")
-        }
-    }
-
-
 }
 
