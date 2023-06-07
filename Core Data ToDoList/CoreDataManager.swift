@@ -7,11 +7,33 @@
 
 import Foundation
 import UIKit
+import CoreData
 
 final public class CoreDataManager {
     public static let shared = CoreDataManager()
     
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    let context: NSManagedObjectContext
+    
+    init() {
+        // Get the NSManagedObjectContext
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        self.context = appDelegate.persistentContainer.viewContext
+        
+        // Config data protection
+        let persistentStoreCoordinator = appDelegate.persistentContainer.persistentStoreCoordinator
+        let storeOptions = [NSPersistentStoreFileProtectionKey: FileProtectionType.complete]
+        let storeDescription = NSPersistentStoreDescription()
+        storeDescription.setOption(storeOptions as NSObject, forKey: NSPersistentStoreFileProtectionKey)
+        persistentStoreCoordinator.addPersistentStore(with: storeDescription, completionHandler: { (storeDescription, error) in
+            if let error = error {
+                // Handle error during persistent store setup
+                print("Error setting up persistent store: \(error)")
+            } else {
+                // Successful setup
+                print("Persistent store setup successful")
+            }
+        })
+    }
     
     func getAllItems() -> [ToDoListItem] {
         do {
@@ -58,5 +80,5 @@ final public class CoreDataManager {
         }
         completion()
     }
-
+    
 }
